@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/build/three.min.js"></script>
+        <title>My first three.js app</title>
+        <style>
+            body { margin: 0; }
+            canvas { width: 100%; height: 100% }
+        </style>
+    </head>
+    <body>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@master/build/three.min.js"></script>
+        <script>
+            // シーンオブジェクトを生成
+            var scene = new THREE.Scene();
+            // カメラオブジェクトを生成
+            var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+            // レンダラーを生成
+            var renderer = new THREE.WebGLRenderer();
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.body.appendChild( renderer.domElement );
+
+            // Boxのジオメトリを生成
+            var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+            // 緑色単色のマテリアルを作成
+            var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+            // Cubeメッシュにジオメトリとマテリアルを割り当て
+            var cube = new THREE.Mesh( geometry, material );
+
+            // シーンにCubeを追加
+            scene.add( cube );
+
+            // カメラを5m引く
+            camera.position.z = 5;
+
+            // 毎フレームアニメーション
+            var animate = function () {
+                requestAnimationFrame( animate );
+
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+
+                // シーンを指定したカメラでレンダリング
+                renderer.render( scene, camera );
+            };
+
+            animate();
+        </script>
+    </body>
+</html>
